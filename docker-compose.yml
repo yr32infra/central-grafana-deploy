@@ -1,8 +1,7 @@
 version: '3.9'
 services:
   influxdb:
-    # I cannot pin the SHA256 hash because renovate does not support architecture selection.
-    image: amd64/influxdb:2.7.1
+    image: arm64v8/influxdb:2.7.1@sha256:2cef423ebf4715671a5785392f922df683045e5cc8b8766bb0d014d55c706b02
     hostname: influxdb
     container_name: influxdb__centralgrafana
     restart: unless-stopped
