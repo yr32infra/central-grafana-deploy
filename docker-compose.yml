@@ -1,0 +1,92 @@
+version: '3.9'
+services:
+  influxdb:
+    image: amd64/influxdb:2.7.1@sha256:2cef423ebf4715671a5785392f922df683045e5cc8b8766bb0d014d55c706b02
+    hostname: influxdb
+    container_name: influxdb__centralgrafana
+    restart: unless-stopped
+
+    environment:
+      # I TRUST THE CLOUDFLARE ACCESS!!! XD
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: user
+      DOCKER_INFLUXDB_INIT_PASSWORD: password
+      DOCKER_INFLUXDB_INIT_ORG: gnknzm-org
+      DOCKER_INFLUXDB_INIT_BUCKET: gnknzm-bucket
+      DOCKER_INFLUXDB_INIT_RETENTION: 24w
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: admintoken
+
+    volumes:
+      - type: volume
+        source: influxdb_data
+        target: /var/lib/influxdb2
+
+      - type: volume
+        source: influxdb_config
+        target: /etc/influxdb2
+
+    networks:
+      - internal
+
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  grafana:
+    image: grafana/grafana:10.1.1@sha256:91d18e12e5f9123f2d4cbb6afeaddc64b90ca741a0e9e75a8e867cc8dee14cf3
+    hostname: grafana
+    container_name: grafana
+    restart: unless-stopped
+
+    volumes:
+      - type: volume
+        source: grafana_data
+        target: /var/lib/grafana
+
+    networks:
+      internal:
+      outband:
+
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+  cloudflared:
+    image: cloudflare/cloudflared:2023.8.2-arm64@sha256:e1770d32ee66b0f4fb264526a7a2bcca46120ee149b5c7d13ba1a11600ff51fb
+    hostname: cloudflared
+    container_name: centralgrafana__cloudflared
+    restart: unless-stopped
+
+    environment:
+      TUNNEL_LOGFILE: /dev/stdout
+
+    command: tunnel run --token ${TUNNEL_TOKEN}
+
+    networks:
+      internal:
+      outband:
+
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+
+volumes:
+  influxdb_config:
+    name: centralgrafana__influxdb_config
+
+  influxdb_data:
+    name: centralgrafana__influxdb_data
+
+  grafana_data:
+    name: centralgrafana__grafana_data
+
+networks:
+  internal:
+    name: centralgrafana__internal
+    internal: true
+
+  outband:
+    name: centralgrafana__outband
