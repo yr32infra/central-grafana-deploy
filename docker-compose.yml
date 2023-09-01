@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   influxdb:
-    image: amd64/influxdb:2.7.1@sha256:2cef423ebf4715671a5785392f922df683045e5cc8b8766bb0d014d55c706b02
+    image: amd64/influxdb:2.7.1@sha256:42c8af504d745d00e41c1b869e9aea6c5970972262714bc2a68103078c9778bf
     hostname: influxdb
     container_name: influxdb__centralgrafana
     restart: unless-stopped
