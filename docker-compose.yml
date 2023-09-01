@@ -37,7 +37,7 @@ services:
   grafana:
     image: grafana/grafana:10.1.1
     hostname: grafana
-    container_name: grafana
+    container_name: grafana__centralgrafana
     restart: unless-stopped
 
     environment:
@@ -64,7 +64,7 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:2023.8.2-arm64@sha256:e1770d32ee66b0f4fb264526a7a2bcca46120ee149b5c7d13ba1a11600ff51fb
     hostname: cloudflared
-    container_name: centralgrafana__cloudflared
+    container_name: cloudflared__centralgrafana
     restart: unless-stopped
 
     environment:
