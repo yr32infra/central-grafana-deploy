@@ -1,13 +1,45 @@
 version: '3.9'
 services:
+  prometheus:
+    image: prom/prometheus:v2.46.0
+    hostname: prometheus
+    container_name: centralgrafana__prometheus
+    restart: unless-stopped
+
+    volumes:
+      - type: volume
+        source: prometheus_data
+        target: /prometheus
+
+      - type: bind
+        source: ./prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+        read_only: true
+
+    command:
+      - '--storage.tsdb.retention.time=15d'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-remote-write-receiver'
+
+    networks:
+      - internal
+
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+
   influxdb:
     image: influxdb:1.8.10
     hostname: influxdb
-    container_name: influxdb__centralgrafana
+    container_name: centralgrafana__influxdb
     restart: unless-stopped
 
     environment:
-      # I TRUST THE CLOUDFLARE ACCESS!!! XD
       INFLUXDB_DB: gnknzm_db
       INFLUXDB_USER: user
       INFLUXDB_USER_PASSWORD: password
@@ -35,7 +67,7 @@ services:
   grafana:
     image: grafana/grafana:10.1.1
     hostname: grafana
-    container_name: grafana__centralgrafana
+    container_name: centralgrafana__grafana
     restart: unless-stopped
 
     environment:
@@ -62,7 +94,7 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:2023.8.2-arm64@sha256:e1770d32ee66b0f4fb264526a7a2bcca46120ee149b5c7d13ba1a11600ff51fb
     hostname: cloudflared
-    container_name: cloudflared__centralgrafana
+    container_name: centralgrafana__cloudflared
     restart: unless-stopped
 
     environment:
@@ -85,6 +117,9 @@ volumes:
 
   influxdb_data:
     name: centralgrafana__influxdb_data
+
+  prometheus_data:
+    name: centralgrafana__prometheus_data
 
   grafana_data:
     name: centralgrafana__grafana_data
