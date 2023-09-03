@@ -1,29 +1,28 @@
 version: '3.9'
 services:
   influxdb:
-    image: arm64v8/influxdb:2.7.1@sha256:2cef423ebf4715671a5785392f922df683045e5cc8b8766bb0d014d55c706b02
+    image: influxdb:1.8.10
     hostname: influxdb
     container_name: influxdb__centralgrafana
     restart: unless-stopped
 
     environment:
       # I TRUST THE CLOUDFLARE ACCESS!!! XD
-      DOCKER_INFLUXDB_INIT_MODE: setup
-      DOCKER_INFLUXDB_INIT_USERNAME: user
-      DOCKER_INFLUXDB_INIT_PASSWORD: password
-      DOCKER_INFLUXDB_INIT_ORG: gnknzm-org
-      DOCKER_INFLUXDB_INIT_BUCKET: gnknzm-bucket
-      DOCKER_INFLUXDB_INIT_RETENTION: 24w
-      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: admintoken
+      INFLUXDB_DB: gnknzm_db
+      INFLUXDB_USER: user
+      INFLUXDB_USER_PASSWORD: password
+      INFLUXDB_ADMIN_ENABLED: "true"
+      INFLUXDB_ADMIN_USER: admin
+      INFLUXDB_ADMIN_PASSWORD: password
 
     volumes:
       - type: volume
         source: influxdb_data
-        target: /var/lib/influxdb2
+        target: /var/lib/influxdb
 
       - type: volume
         source: influxdb_config
-        target: /etc/influxdb2
+        target: /etc/influxdb
 
     networks:
       - internal
