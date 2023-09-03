@@ -71,11 +71,11 @@ services:
     restart: unless-stopped
 
     environment:
-      # I TRUST THE CLOUDFLARE ACCESS!!! XD
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: password
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_USERS_ALLOW_ORG_CREATE: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
 
     volumes:
       - type: volume
