@@ -62,7 +62,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 512m
+          memory: 1024m
 
   grafana:
     image: grafana/grafana:10.1.1
