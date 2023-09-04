@@ -34,7 +34,7 @@ services:
 
 
   influxdb:
-    image: influxdb:1.8.10
+    image: influxdb:2.7.1@sha256:3f2c6e38e0feaed1ea244928c2c9a21c361e2d0b8cfb8d4d7ff4036391b29a0c
     hostname: influxdb
     container_name: centralgrafana__influxdb
     restart: unless-stopped
