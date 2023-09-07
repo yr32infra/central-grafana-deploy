@@ -30,7 +30,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 512m
+          memory: 4096m
 
 
   influxdb:
@@ -62,7 +62,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1024m
+          memory: 4096m
 
   grafana:
     image: grafana/grafana:10.1.1
