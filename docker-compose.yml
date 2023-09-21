@@ -47,6 +47,7 @@ services:
 
     command:
       - '-retentionPeriod=1y'
+      - '-maxLabelsPerTimeseries=60'
 
     networks:
       - internal
