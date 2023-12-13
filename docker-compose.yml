@@ -35,7 +35,7 @@ services:
 
 
   victoriametrics:
-    image: victoriametrics/victoria-metrics:v1.95.1
+    image: victoriametrics/victoria-metrics:v1.96.0
     hostname: victoriametrics
     container_name: centralgrafana__victoriametrics
     restart: unless-stopped
