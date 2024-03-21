@@ -59,7 +59,7 @@ services:
 
 
   grafana:
-    image: grafana/grafana:10.4.0
+    image: grafana/grafana:10.4.1
     hostname: grafana
     container_name: centralgrafana__grafana
     restart: unless-stopped
