@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   prometheus:
-    image: prom/prometheus:v2.51.2
+    image: prom/prometheus:v2.52.0
     hostname: prometheus
     container_name: centralgrafana__prometheus
     restart: unless-stopped
