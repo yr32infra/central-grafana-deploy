@@ -18,7 +18,7 @@ services:
 
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.retention.time=90d'
+      - '--storage.tsdb.retention.time=30d'
       - '--storage.tsdb.path=/prometheus'
       - '--web.enable-admin-api'
       - '--web.console.libraries=/etc/prometheus/console_libraries'
