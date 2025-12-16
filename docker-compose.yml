@@ -46,7 +46,7 @@ services:
         target: /victoria-metrics-data
 
     command:
-      - '-retentionPeriod=1y'
+      - '-retentionPeriod=180d'
       - '-maxLabelsPerTimeseries=60'
 
     networks:
