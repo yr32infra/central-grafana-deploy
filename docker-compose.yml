@@ -86,7 +86,7 @@ services:
           memory: 512m
 
   cloudflared:
-    image: cloudflare/cloudflared:2026.8.2-arm64@sha256:38b3c3029deda0fe5a41b3d312a717c6301c3572d82f03330324236e2f55f644
+    image: cloudflare/cloudflared:2026.8.3-arm64@sha256:4ecc4283c0f7cc127522e5ef261595cfe8571ee28f5c8d3751b24f52f9d04ebe
     hostname: cloudflared
     container_name: centralgrafana__cloudflared
     restart: unless-stopped
